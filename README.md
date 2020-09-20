@@ -1,2 +1,3 @@
-# pos-ui
-一套基于vue2、vue-cli3构建的ui组件库
+# vue-pos-ui
+
+## 一套基于 vue2、vue-cli4 构建的 ui 组件库
