@@ -1,5 +1,5 @@
 <template>
-  <button class="pos-button" :class="btnClass">
+  <button class="pos-button" :class="btnClass" @click="onClick">
     <pos-icon :icon="icon" v-if="icon" class="icon"></pos-icon>
     <span v-if="this.$slots.default">
       <slot></slot>
@@ -10,6 +10,11 @@
 <script>
 export default {
   name: 'pos-button',
+  data() {
+    return {
+      wave: false,
+    }
+  },
   props: {
     type: {
       type: String,
@@ -46,8 +51,26 @@ export default {
       if (this.iconPosition) {
         classes.push(`pos-button-${this.iconPosition}`)
       }
+      if (this.wave) {
+        classes.push(`pos-button-${this.type}-wave`)
+      }
       return classes
     },
+  },
+  mounted() {
+    this.$el.addEventListener('animationend', this.listenAnimation)
+  },
+  methods: {
+    onClick(e) {
+      this.$emit('click', e)
+      this.wave = true
+    },
+    listenAnimation() {
+      this.wave = false
+    },
+  },
+  beforeDestroy() {
+    this.$el.removeEventListener('animationend', this.listenAnimation)
   },
 }
 </script>
@@ -72,16 +95,16 @@ $active-color: #3a8ee6;
   justify-content: center;
   vertical-align: middle;
   user-select: none;
+  outline: none;
+  position: relative;
   &:hover {
     border-color: $border-color;
     background-color: $background;
   }
-  &:focus,
   &:active {
     color: $active-color;
     border-color: 1px solid $active-color;
     background-color: $background;
-    outline: none;
   }
   @each $type,
     $color
@@ -122,11 +145,29 @@ $active-color: #3a8ee6;
         danger: $danger-active
       )
   {
-    &-#{$type}:active,
-    &-#{$type}:focus {
+    &-#{$type}:active {
       background: #{$color};
       border: 1px solid #{$color};
       color: #ffffff;
+    }
+    &-#{$type}-wave {
+      &::after {
+        content: '';
+        display: block;
+        background: #{$color};
+        pointer-events: none;
+        position: absolute;
+        z-index: 1;
+        top: -1px;
+        left: -1px;
+        bottom: -1px;
+        right: -1px;
+        border-radius: inherit;
+        border: 0 solid #{$color};
+        opacity: 0.4;
+        animation: after-scale 0.5s linear forwards;
+        flex-shrink: 0;
+      }
     }
   }
 
@@ -155,6 +196,16 @@ $active-color: #3a8ee6;
     .icon + span {
       margin-right: 4px;
     }
+  }
+}
+@keyframes after-scale {
+  to {
+    top: -6px;
+    left: -6px;
+    bottom: -6px;
+    right: -6px;
+    border-width: 6px;
+    opacity: 0;
   }
 }
 </style>
