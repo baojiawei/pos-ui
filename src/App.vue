@@ -20,6 +20,17 @@
     <!-- icon -->
     <pos-icon icon="sousuo"></pos-icon>
     <pos-icon icon="edit"></pos-icon>
+    <br />
+    <!-- button-group -->
+    <pos-button-group>
+      <pos-button type="primary" icon="left" icon-position="left">上一页</pos-button>
+      <pos-button type="primary" icon="right" icon-position="right">下一页</pos-button>
+    </pos-button-group>
+    <pos-button-group>
+      <pos-button type="primary" icon="sousuo">搜素</pos-button>
+      <pos-button type="primary" icon="xiazai">下载</pos-button>
+      <pos-button type="primary" icon="edit">编辑</pos-button>
+    </pos-button-group>
   </div>
 </template>
 

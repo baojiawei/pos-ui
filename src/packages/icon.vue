@@ -19,8 +19,8 @@ export default {
 
 <style lang="scss">
 .pos-icon {
-  width: 25px;
-  height: 25px;
+  width: 24px;
+  height: 24px;
   vertical-align: middle;
 }
 </style>

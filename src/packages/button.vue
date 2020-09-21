@@ -108,7 +108,7 @@ $active-color: #3a8ee6;
   }
   &:active {
     color: $active-color;
-    border-color: 1px solid $active-color;
+    border-color: $active-color;
     background-color: $background;
   }
   @each $type,
