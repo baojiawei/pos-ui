@@ -1,6 +1,7 @@
 <template>
-  <button class="pos-button" :class="btnClass" @click="onClick">
-    <pos-icon :icon="icon" v-if="icon" class="icon"></pos-icon>
+  <button class="pos-button" :class="btnClass" :disabled="loading" @click="onClick">
+    <pos-icon :icon="icon" v-if="icon && !loading" class="icon"></pos-icon>
+    <pos-icon icon="loading" v-if="loading" class="icon loading"></pos-icon>
     <span v-if="this.$slots.default">
       <slot></slot>
     </span>
@@ -40,6 +41,10 @@ export default {
         }
         return true
       },
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -145,7 +150,7 @@ $active-color: #3a8ee6;
         danger: $danger-active
       )
   {
-    &-#{$type}:active {
+    &-#{$type}:active:not(:disabled) {
       background: #{$color};
       border: 1px solid #{$color};
       color: #ffffff;
@@ -174,28 +179,30 @@ $active-color: #3a8ee6;
   .icon {
     width: 16px;
     height: 16px;
+    &.loading {
+      animation: loading-spin 2s linear infinite;
+    }
   }
   &-left {
     svg {
       order: 1;
+      margin-right: 4px;
     }
     span {
       order: 2;
-    }
-    .icon + span {
-      margin-left: 4px;
     }
   }
   &-right {
     svg {
       order: 2;
+      margin-left: 4px;
     }
     span {
       order: 1;
     }
-    .icon + span {
-      margin-right: 4px;
-    }
+  }
+  &[disabled] {
+    cursor: not-allowed;
   }
 }
 @keyframes after-scale {
@@ -206,6 +213,14 @@ $active-color: #3a8ee6;
     right: -6px;
     border-width: 6px;
     opacity: 0;
+  }
+}
+@keyframes loading-spin {
+  0% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(360deg);
   }
 }
 </style>

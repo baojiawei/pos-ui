@@ -7,12 +7,16 @@
     <pos-button type="danger">危险按钮</pos-button>
     <pos-button type="success">成功按钮</pos-button>
     <pos-button type="info">信息按钮</pos-button>
-
+    <br />
     <!-- 带icon的button -->
     <pos-button type="info" icon="sousuo">信息按钮</pos-button>
     <pos-button type="warning" icon="sousuo"></pos-button>
     <pos-button type="primary" icon="sousuo" icon-position="right">主要按钮</pos-button>
-
+    <pos-button type="success" loading>加载中</pos-button>
+    <br />
+    <!-- 带icon的button -->
+    <pos-button type="danger" @click="fn">点击事件</pos-button>
+    <br />
     <!-- icon -->
     <pos-icon icon="sousuo"></pos-icon>
     <pos-icon icon="edit"></pos-icon>
@@ -22,6 +26,11 @@
 <script>
 export default {
   name: 'App',
+  methods: {
+    fn(e) {
+      console.log(e)
+    },
+  },
 }
 </script>
 
