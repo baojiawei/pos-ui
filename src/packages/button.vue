@@ -1,5 +1,6 @@
 <template>
   <button class="pos-button" :class="btnClass">
+    <pos-icon :icon="icon" v-if="icon" class="icon"></pos-icon>
     <span v-if="this.$slots.default">
       <slot></slot>
     </span>
@@ -14,14 +15,23 @@ export default {
       type: String,
       default: '',
       validator(type) {
-        if (
-          type &&
-          !['warning', 'success', 'danger', 'primary', 'info'].includes(type)
-        ) {
+        if (type && !['warning', 'success', 'danger', 'primary', 'info'].includes(type)) {
           console.error(
-            'type类型必须为: ' +
-              ['warning', 'success', 'danger', 'primary', 'info'].join('、'),
+            'type类型必须为: ' + ['warning', 'success', 'danger', 'primary', 'info'].join('、'),
           )
+        }
+        return true
+      },
+    },
+    icon: {
+      type: String,
+    },
+    iconPosition: {
+      type: String,
+      default: 'left',
+      validator(type) {
+        if (!['left', 'right'].includes(type)) {
+          console.error('iconPosition属性必须为：left或者right')
         }
         return true
       },
@@ -32,6 +42,9 @@ export default {
       let classes = []
       if (this.type) {
         classes.push(`pos-button-${this.type}`)
+      }
+      if (this.iconPosition) {
+        classes.push(`pos-button-${this.iconPosition}`)
       }
       return classes
     },
@@ -72,18 +85,13 @@ $active-color: #3a8ee6;
   }
   @each $type,
     $color
-      in (
-        primary: $primary,
-        success: $success,
-        info: $info,
-        warning: $warning,
-        danger: $danger
-      )
+      in (primary: $primary, success: $success, info: $info, warning: $warning, danger: $danger)
   {
     &-#{$type} {
       background: #{$color};
       border: 1px solid #{$color};
       color: #ffffff;
+      fill: #ffffff;
     }
   }
 
@@ -119,6 +127,33 @@ $active-color: #3a8ee6;
       background: #{$color};
       border: 1px solid #{$color};
       color: #ffffff;
+    }
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+  &-left {
+    svg {
+      order: 1;
+    }
+    span {
+      order: 2;
+    }
+    .icon + span {
+      margin-left: 4px;
+    }
+  }
+  &-right {
+    svg {
+      order: 2;
+    }
+    span {
+      order: 1;
+    }
+    .icon + span {
+      margin-right: 4px;
     }
   }
 }
