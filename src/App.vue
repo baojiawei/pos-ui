@@ -42,6 +42,13 @@
         <div class="green">ddd</div>
       </pos-col>
     </pos-row>
+    <hr />
+    <pos-row :gutter="10">
+      <pos-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1"><div class="red">1</div></pos-col>
+      <pos-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11"><div class="green">2</div></pos-col>
+      <pos-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11"><div class="red">3</div></pos-col>
+      <pos-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1"><div class="green">4</div></pos-col>
+    </pos-row>
   </div>
 </template>
 
