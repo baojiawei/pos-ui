@@ -12,12 +12,12 @@ export default {
     for (let i = 0, length = children.length; i < length; i++) {
       console.assert(children[i].tagName === 'BUTTON', '按钮组的子元素必须是button')
     }
-  },
+  }
 }
 </script>
 
 <style lang="scss">
-@import '../styles/_var.scss';
+@import '../../styles/_var.scss';
 .pos-button-group {
   display: inline-flex;
   vertical-align: middle;

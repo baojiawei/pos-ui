@@ -13,7 +13,7 @@ export default {
   name: 'pos-button',
   data() {
     return {
-      wave: false,
+      wave: false
     }
   },
   props: {
@@ -23,29 +23,29 @@ export default {
       validator(type) {
         if (type && !['warning', 'success', 'danger', 'primary', 'info'].includes(type)) {
           console.error(
-            'type类型必须为: ' + ['warning', 'success', 'danger', 'primary', 'info'].join('、'),
+            'type类型必须为: ' + ['warning', 'success', 'danger', 'primary', 'info'].join('、')
           )
         }
         return true
-      },
+      }
     },
     icon: {
-      type: String,
+      type: String
     },
-    iconPosition: {
+    position: {
       type: String,
       default: 'left',
       validator(type) {
         if (!['left', 'right'].includes(type)) {
-          console.error('iconPosition属性必须为：left或者right')
+          console.error('position属性必须为：left或者right')
         }
         return true
-      },
+      }
     },
     loading: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   computed: {
     btnClass() {
@@ -53,14 +53,14 @@ export default {
       if (this.type) {
         classes.push(`pos-button-${this.type}`)
       }
-      if (this.iconPosition) {
-        classes.push(`pos-button-${this.iconPosition}`)
+      if (this.position) {
+        classes.push(`pos-button-${this.position}`)
       }
       if (this.wave) {
         classes.push(`pos-button-${this.type}-wave`)
       }
       return classes
-    },
+    }
   },
   mounted() {
     this.$el.addEventListener('animationend', this.listenAnimation)
@@ -72,16 +72,16 @@ export default {
     },
     listenAnimation() {
       this.wave = false
-    },
+    }
   },
   beforeDestroy() {
     this.$el.removeEventListener('animationend', this.listenAnimation)
-  },
+  }
 }
 </script>
 
 <style lang="scss">
-@import '../styles/_var.scss';
+@import '../../styles/_var.scss';
 $height: 42px;
 $font-size: 16px;
 $color: #606266;

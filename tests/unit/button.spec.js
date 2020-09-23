@@ -41,7 +41,7 @@ describe('button.vue', () => {
     wrapper.find('button').trigger('click')
     expect(wrapper.emitted('click').length).to.eq(1)
   })
-  it('5.测试button传入iconPosition能否正常显示', () => {
+  it('5.测试button传入position能否正常显示', () => {
     const wrapper = shallowMount(Button, {
       attachTo: document.body,
       stubs: {
@@ -51,13 +51,13 @@ describe('button.vue', () => {
         default: 'pos-ui',
       },
       propsData: {
-        iconPosition: 'left',
+        position: 'left',
         icon: 'edit',
       },
     })
     let ele = wrapper.vm.$el.querySelector('span')
     expect(getComputedStyle(ele).order).to.eq('2')
-    wrapper.setProps({ iconPosition: 'right' })
+    wrapper.setProps({ position: 'right' })
     return wrapper.vm.$nextTick().then(() => {
       expect(getComputedStyle(ele).order).to.eq('1')
     })
