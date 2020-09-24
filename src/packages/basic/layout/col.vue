@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../styles/_var.scss';
+@import '@/styles/_var.scss';
 @for $i from 1 through 24 {
   .pos-col-#{$i} {
     width: $i/24 * 100%;

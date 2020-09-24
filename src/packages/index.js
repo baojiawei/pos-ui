@@ -1,15 +1,28 @@
-import Button from './button/button.vue'
-import Icon from './icon.vue'
-import ButtonGroup from './button/button-group.vue'
-import Row from './layout/row.vue'
-import Col from './layout/col.vue'
-import Container from './container/container.vue'
-import Aside from './container/aside.vue'
-import Footer from './container/footer.vue'
-import Header from './container/header.vue'
-import Main from './container/main.vue'
+import Button from './basic/button/button.vue'
+import Icon from './basic/icon/icon.vue'
+import ButtonGroup from './basic/group/button-group.vue'
+import Row from './basic/layout/row.vue'
+import Col from './basic/layout/col.vue'
+import Container from './basic/container/container.vue'
+import Aside from './basic/container/aside.vue'
+import Footer from './basic/container/footer.vue'
+import Header from './basic/container/header.vue'
+import Main from './basic/container/main.vue'
+import Input from './Form/input/input.vue'
 
-const components = [Button, Icon, ButtonGroup, Row, Col, Container, Main, Aside, Header, Footer]
+const components = [
+  Button,
+  Icon,
+  ButtonGroup,
+  Row,
+  Col,
+  Container,
+  Main,
+  Aside,
+  Header,
+  Footer,
+  Input
+]
 const install = Vue => {
   components.forEach(component => {
     Vue.component(component.name, component)
