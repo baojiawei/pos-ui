@@ -1,5 +1,6 @@
 <template>
   <div class="pos-input" :class="inputClass">
+    <pos-icon :icon="prefixIcon" v-if="prefixIcon"></pos-icon>
     <input
       :type="showPassword ? (passwordVisible ? 'text' : 'password') : type"
       :name="name"
@@ -9,6 +10,7 @@
       @input="$emit('input', $event.target.value)"
       ref="input"
     />
+    <pos-icon :icon="suffixIcon" v-if="suffixIcon"></pos-icon>
     <pos-icon
       icon="qingkong"
       v-if="clearable && value"
@@ -55,13 +57,18 @@ export default {
     showPassword: {
       type: Boolean,
       default: false
-    }
+    },
+    prefixIcon: String,
+    suffixIcon: String
   },
   computed: {
     inputClass() {
       let classes = []
-      if (this.clearable || this.showPassword) {
+      if (this.clearable || this.showPassword || this.suffixIcon) {
         classes.push(`pos-input-suffix-icon`)
+      }
+      if (this.prefixIcon) {
+        classes.push(`pos-input-prefix-icon`)
       }
       return classes
     }
@@ -108,6 +115,19 @@ export default {
   .pos-icon {
     position: absolute;
     right: 8px;
+    top: 13px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+  }
+}
+.pos-input-prefix-icon {
+  input {
+    padding-left: 28px;
+  }
+  .pos-icon {
+    position: absolute;
+    left: 8px;
     top: 13px;
     cursor: pointer;
     width: 16px;

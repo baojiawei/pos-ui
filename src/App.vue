@@ -23,6 +23,20 @@
       name="username"
       show-password
     ></pos-input>
+    <pos-input
+      v-model="value"
+      type="password"
+      placeholder="请输入内容"
+      name="username"
+      prefix-icon="edit"
+    ></pos-input>
+    <pos-input
+      v-model="value"
+      type="password"
+      placeholder="请输入内容"
+      name="username"
+      suffix-icon="edit"
+    ></pos-input>
   </div>
 </template>
 
