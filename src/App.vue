@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <pos-switch v-model="value1" active-text="按月付费" inactive-text="按年付费"> </pos-switch>
     <pos-switch
-      style="display: block"
-      v-model="value2"
+      v-model="value"
       active-color="#13ce66"
       inactive-color="#ff4949"
-      active-text="按月付费"
-      inactive-text="按年付费"
+      active-value="100"
+      inactive-value="0"
+      @change="handleChange"
     >
     </pos-switch>
+    {{ value }}
   </div>
 </template>
 
@@ -18,8 +18,12 @@ export default {
   name: 'App',
   data() {
     return {
-      value1: true,
-      value2: true
+      value: 100
+    }
+  },
+  methods: {
+    handleChange(val) {
+      console.log(val)
     }
   }
 }

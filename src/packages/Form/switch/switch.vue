@@ -1,15 +1,32 @@
 <template>
   <div class="pos-switch">
     <span
+      ref="inactiveText"
+      v-if="inactiveText"
+      class="switch-text left"
+      :class="{ active: !switchStatus }"
+      @click="handletoggle"
+      >{{ inactiveText }}</span
+    >
+    <span
       ref="core"
       class="pos-switch-core"
       :value="value"
       :style="coreStyle"
       :class="coreClass"
       @click="handletoggle"
+      :disabled="disabled"
     >
       <span class="pos-switch-core-inner" :style="innerStyle"></span>
     </span>
+    <span
+      ref="activeText"
+      v-if="activeText"
+      class="switch-text right"
+      :class="{ active: switchStatus }"
+      @click="handletoggle"
+      >{{ activeText }}</span
+    >
   </div>
 </template>
 
@@ -23,8 +40,8 @@ export default {
   },
   props: {
     width: {
-      type: Number,
-      default: 40
+      type: String,
+      default: '40'
     },
     value: {
       type: [Boolean, String, Number],
@@ -79,17 +96,13 @@ export default {
       return classes
     }
   },
-  mounted() {
-    // if (this.activeColor && this.switchStatus) {
-    //   this.$refs.core.style.background = this.activeColor
-    // }
-    // if (this.inactiveColor && !this.switchStatus) {
-    //   this.$refs.core.style.background = this.inactiveColor
-    // }
-  },
   methods: {
     handletoggle() {
+      if (this.disabled) return
       this.switchStatus = !this.switchStatus
+      const newValue = this.switchStatus ? this.activeValue : this.inactiveValue
+      this.$emit('input', newValue)
+      this.$emit('change', newValue)
     }
   }
 }
@@ -102,11 +115,18 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: 14px;
-  > .switch-left-text {
-    margin-right: 3px;
-  }
-  > .switch-right-text {
-    margin-left: 3px;
+  > .switch-text {
+    color: $switch-font-color;
+    cursor: pointer;
+    &.active {
+      color: $primary;
+    }
+    &.right {
+      margin-left: 3px;
+    }
+    &.left {
+      margin-right: 3px;
+    }
   }
   > .pos-switch-core {
     display: inline-block;
@@ -132,7 +152,8 @@ export default {
       }
     }
     &.disabled {
-      background: #bbb;
+      cursor: not-allowed;
+      background: $switch-disabled-color;
     }
   }
 }
