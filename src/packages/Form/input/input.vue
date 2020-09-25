@@ -8,6 +8,9 @@
       :value="value"
       :disabled="disabled"
       @input="$emit('input', $event.target.value)"
+      @focus="handleFocus"
+      @blur="handleBlur"
+      @change="handleChange"
       ref="input"
     />
     <pos-icon :icon="suffixIcon" v-if="suffixIcon"></pos-icon>
@@ -79,6 +82,15 @@ export default {
       this.$nextTick(() => {
         this.$refs['input'].focus()
       })
+    },
+    handleFocus(event) {
+      this.$emit('focus', event)
+    },
+    handleChange(event) {
+      this.$emit('change', event.target.value)
+    },
+    handleBlur(event) {
+      this.$emit('blur', event)
     }
   }
 }

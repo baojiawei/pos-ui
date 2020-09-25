@@ -1,42 +1,15 @@
 <template>
   <div id="app">
-    <pos-input v-model="value" type="text" placeholder="请输入内容" name="username"></pos-input>
-    <pos-input v-model="value" type="password" placeholder="请输入内容" name="username"></pos-input>
-    <pos-input
-      v-model="value"
-      type="password"
-      :disabled="true"
-      placeholder="请输入内容"
-      name="username"
-    ></pos-input>
-    <pos-input
-      v-model="value"
-      type="password"
-      placeholder="请输入内容"
-      name="username"
-      clearable
-    ></pos-input>
-    <pos-input
-      v-model="value"
-      type="password"
-      placeholder="请输入内容"
-      name="username"
-      show-password
-    ></pos-input>
-    <pos-input
-      v-model="value"
-      type="password"
-      placeholder="请输入内容"
-      name="username"
-      prefix-icon="edit"
-    ></pos-input>
-    <pos-input
-      v-model="value"
-      type="password"
-      placeholder="请输入内容"
-      name="username"
-      suffix-icon="edit"
-    ></pos-input>
+    <pos-switch v-model="value1" active-text="按月付费" inactive-text="按年付费"> </pos-switch>
+    <pos-switch
+      style="display: block"
+      v-model="value2"
+      active-color="#13ce66"
+      inactive-color="#ff4949"
+      active-text="按月付费"
+      inactive-text="按年付费"
+    >
+    </pos-switch>
   </div>
 </template>
 
@@ -45,7 +18,8 @@ export default {
   name: 'App',
   data() {
     return {
-      value: ''
+      value1: true,
+      value2: true
     }
   }
 }

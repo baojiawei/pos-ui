@@ -9,6 +9,7 @@ import Footer from './basic/container/footer.vue'
 import Header from './basic/container/header.vue'
 import Main from './basic/container/main.vue'
 import Input from './Form/input/input.vue'
+import Switch from './Form/switch/switch.vue'
 
 const components = [
   Button,
@@ -21,7 +22,8 @@ const components = [
   Aside,
   Header,
   Footer,
-  Input
+  Input,
+  Switch
 ]
 const install = Vue => {
   components.forEach(component => {
