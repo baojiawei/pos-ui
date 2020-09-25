@@ -130,7 +130,7 @@ export default {
   }
   > .pos-switch-core {
     display: inline-block;
-    background: $danger;
+    background: $switch-disabled-color;
     position: relative;
     transition: all 0.3s linear;
     cursor: pointer;
@@ -146,7 +146,7 @@ export default {
       margin-left: 0;
     }
     &.active {
-      background: $success;
+      background: $switch-success-color;
       > .pos-switch-core-inner {
         margin-left: 50%;
       }
