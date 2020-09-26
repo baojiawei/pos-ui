@@ -1,15 +1,17 @@
 <template>
   <div id="app">
-    <pos-switch
-      v-model="value"
-      active-color="#13ce66"
-      inactive-color="#ff4949"
-      active-value="100"
-      inactive-value="0"
-      @change="handleChange"
-    >
-    </pos-switch>
-    {{ value }}
+    <pos-upload
+      name="avatar"
+      action="http://localhost:3000/upload"
+      :file-list="fileList"
+      :limit="3"
+      :multiple="true"
+      :on-exceed="handleExceed"
+      :on-change="handleChange"
+      :on-success="handleSuccess"
+      :on-error="handleError"
+      :on-progress="handleProgress"
+    ></pos-upload>
   </div>
 </template>
 
@@ -18,13 +20,18 @@ export default {
   name: 'App',
   data() {
     return {
-      value: 100
+      fileList: [
+        { url: 'xxx', name: 'avatar.png' },
+        { url: 'xxx1', name: 'avatar1.png' }
+      ]
     }
   },
   methods: {
-    handleChange(val) {
-      console.log(val)
-    }
+    handleExceed() {},
+    handleChange() {},
+    handleSuccess() {},
+    handleError() {},
+    handleProgress() {}
   }
 }
 </script>
