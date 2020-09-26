@@ -47,7 +47,8 @@ export default {
     onChange: Function,
     onSuccess: Function,
     onError: Function,
-    onProgress: Function
+    onProgress: Function,
+    beforeUpload: Function
   },
   watch: {
     // 默认将外部传入的fileList添加到组件内的变量files里
@@ -94,8 +95,22 @@ export default {
       // 将当前用户上传的文件push到files里
       // files里将会有已上传的和未上传的文件
       this.files.push(file)
+      // 文件改变触发on-change事件
+      this.onChange && this.onChange(file)
     },
-    upload() {}
+    upload(rawFile) {
+      // 判断文件是否能够上传
+      if (!this.beforeUpload) {
+        return this.post(rawFile)
+      }
+      let flag = this.beforeUpload(rawFile)
+      if (flag) {
+        return this.post(rawFile)
+      }
+    },
+    post(rawFile) {
+      console.log('上传', JSON.stringify(rawFile))
+    }
   }
 }
 </script>
