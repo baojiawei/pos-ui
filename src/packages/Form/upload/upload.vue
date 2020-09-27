@@ -19,12 +19,14 @@
 </template>
 
 <script>
+import ajax from 'ajax'
 export default {
   name: 'pos-upload',
   data() {
     return {
       tempIndex: 1,
-      files: []
+      files: [],
+      reqs: {}
     }
   },
   props: {
@@ -48,7 +50,11 @@ export default {
     onSuccess: Function,
     onError: Function,
     onProgress: Function,
-    beforeUpload: Function
+    beforeUpload: Function,
+    httpRequest: {
+      type: Function,
+      default: ajax
+    }
   },
   watch: {
     // 默认将外部传入的fileList添加到组件内的变量files里
@@ -109,7 +115,20 @@ export default {
       }
     },
     post(rawFile) {
-      console.log('上传', JSON.stringify(rawFile))
+      const uid = rawFile.uid
+      const options = {
+        file: rawFile,
+        filename: rawFile.name,
+        action: this.action,
+        onProgress: ev => {},
+        onSuccess: res => {},
+        onError: err => {}
+      }
+      let req = this.httpRequest(options)
+      this.reqs[uid] = req
+      if (req && req.then) {
+        req.then(options.onSuccess, options.onError)
+      }
     }
   }
 }
