@@ -15,11 +15,21 @@
     <div>
       <slot name="tip"></slot>
     </div>
+    <ul>
+      <li v-for="file in files" :key="file.uid">
+        <div class="list-item">
+          <pos-icon icon="file"></pos-icon>
+          {{ file.name }}
+          {{ file.status }}
+          <pos-icon icon="cha"></pos-icon>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import ajax from 'ajax'
+import ajax from './ajax'
 export default {
   name: 'pos-upload',
   data() {
@@ -120,15 +130,43 @@ export default {
         file: rawFile,
         filename: rawFile.name,
         action: this.action,
-        onProgress: ev => {},
-        onSuccess: res => {},
-        onError: err => {}
+        onProgress: ev => {
+          this.handleProgress(ev, rawFile)
+        },
+        onSuccess: res => {
+          this.handleSuccess(res, rawFile)
+        },
+        onError: err => {
+          this.handleError(err, rawFile)
+        }
       }
       let req = this.httpRequest(options)
       this.reqs[uid] = req
       if (req && req.then) {
         req.then(options.onSuccess, options.onError)
       }
+    },
+    getFile(rawFile) {
+      return this.files.find(file => file.uid === rawFile.uid)
+    },
+    handleProgress(ev, rawFile) {
+      let file = this.getFile(rawFile)
+      file.status = 'uploading'
+      file.percentage = ev.percent || 0
+      this.onProgress(ev, rawFile)
+    },
+    handleSuccess(res, rawFile) {
+      let file = this.getFile(rawFile)
+      file.status = 'success'
+      this.onSuccess(res, rawFile)
+      this.onChange(file)
+    },
+    handleError(err, rawFile) {
+      let file = this.getFile(rawFile)
+      file.status = 'fail'
+      this.onError(err, rawFile)
+      this.onChange(file)
+      delete this.reqs[file.uid] // 已经失败的ajax 不需要了
     }
   }
 }
