@@ -4,4 +4,4 @@
 
 ### 组件样式参考 element-ui
 
-### button 组件、input 组件、switch 组件、Layout 组件、container 组件
+### button 组件、input 组件、switch 组件、Layout 组件、container 组件、upload 组件
